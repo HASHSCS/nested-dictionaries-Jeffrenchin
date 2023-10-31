@@ -19,7 +19,16 @@ def get_information(data, outer_key, inner_key):
     - Value associated with the inner key or None if the keys are not found.
     """
     # Your code here
-    pass
+    
+    if outer_key in data and inner_key in data[outer_key]:
+        return data[outer_key][inner_key] 
+    else:
+        return None
+    
+   
+        
+        
+        
 
 
 # 2. Add Information:
@@ -36,7 +45,11 @@ def add_information(data, outer_key, inner_key, value):
     - Modified data with the new value
     """
     # Your code here
-    pass
+    if outer_key not in data:
+        data[outer_key] = {}
+    data[outer_key][inner_key] = value
+    return data
+        
 
 
 # 3. Remove Information:
@@ -52,7 +65,10 @@ def remove_information(data, outer_key, inner_key):
     - Modified data with the key-value pair removed or original data if the keys are not found.
     """
     # Your code here
-    pass
+    if outer_key in data:
+        if inner_key in data[outer_key]:
+            del data[outer_key][inner_key]
+    return data
 
 
 # --- Advanced Operations ---
@@ -68,8 +84,14 @@ def get_nested_value(data, key_chain):
     Returns:
     - Value at the end of the key chain or None if the path doesn't exist.
     """
-    # Your code here
-    pass
+    #your code here
+    correct_dict = data 
+    for key in key_chain:
+        if key in correct_dict:
+            correct_dict = correct_dict[key]
+        else:
+            return None
+    return correct_dict
 
 
 # 5. Set Nested Value:
@@ -85,6 +107,13 @@ def set_nested_value(data, key_chain, value):
     - Modified data with the value set at the specified key chain.
     """
     # Your code here
-    pass
-
+    current_dict = data
+    
+    for key in key_chain[:-1]:
+        current_dict = current_dict.setdefault(key, {})
+    
+    current_dict[key_chain[-1]] = value
+    
+    return data
+ 
 
