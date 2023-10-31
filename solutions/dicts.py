@@ -107,6 +107,13 @@ def set_nested_value(data, key_chain, value):
     - Modified data with the value set at the specified key chain.
     """
     # Your code here
-    pass
+    current_dict = data
+    
+    for key in key_chain[:-1]:
+        current_dict = current_dict.setdefault(key, {})
+    
+    current_dict[key_chain[-1]] = value
+    
+    return data
  
 
